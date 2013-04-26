@@ -30,9 +30,9 @@
         .jumbotron {
             margin-bottom: 60px;
             text-align: center;
-            background-color: #eeeeee;
+            background-color: #f7f7f9;
             padding: 80px 0 120px 0;
-            border: 1px solid #e6e6e6;
+            border: 1px solid #e8e8ea;
         }
         .jumbotron h1 {
             font-size: 72px;
@@ -88,7 +88,7 @@
 
 <div class="jumbotron">
     <h1>Responsive Sketchpad</h1>
-    <p class="lead">A completely responsive HTML5 canvas sketchpad</p>
+    <p class="lead">A completely responsive, HTML5 canvas sketchpad</p>
     <a class="btn btn-large" href="https://github.com/trsanders/responsive-sketchpad"><img src="assets/img/octocat-icon.png"> View on Github</a>
     <a class="btn btn-large" href="https://github.com/trsanders/responsive-sketchpad/zipball/master"><img src="assets/img/zip-icon.png"> Download Source</a>
 </div>
@@ -124,10 +124,10 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <h2>Initialize Sketchpad</h2>
-<pre class="prettyprint lang-js">var sketchpad = $('canvas-selector').sketchpad({
-    aspectRatio: 2 / 1,             // (Required) To preserve the drawing, a aspect ratio must be specified
-    backgroundColor: '#ffffff'      // (Optional) To set the background of the canvas
-    strokes: 'JSON',                // (Optional) To initialize the sketchpad with stroke data
+<pre class="prettyprint lang-js">var sketchpad = $('#canvas-selector').sketchpad({
+    aspectRatio: 2 / 1,             // (Required) To preserve the drawing, an aspect ratio must be specified
+    backgroundColor: '#FFFFFF'      // (Optional) Set the background of the canvas
+    strokes: 'JSON',                // (Optional) Initialize the sketchpad with stroke data
 });</pre>
                     </div>
                 </div>
@@ -212,7 +212,7 @@
         viewer.jsonLoad(json)
     }
 
-    // --------- For visual effect ---------------
+    // --------- Visual effects ---------------
 
     $('#copy').click(function() {
         sketchpad.effect('transfer', {
@@ -230,10 +230,10 @@
     });
 
 
-    // ---------- Tools ----------------
+    // --------- Tools ---------------
 
     // Color
-    var colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple', 'black'];
+    var colors = ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'violet', 'indigo'];
     $('#btn-color').click(function() {
         var color = colors[Math.floor(Math.random() * colors.length)];
         sketchpad.setLineColor(color);
@@ -241,7 +241,7 @@
 
     // Size
     $('#btn-size').click(function() {
-        var size = Math.floor(Math.random() * 20) + 1;
+        var size = Math.floor(Math.random() * 18) + 2;
         sketchpad.setLineSize(size);
     });
 
