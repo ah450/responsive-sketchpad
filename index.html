@@ -12,17 +12,25 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <link href="assets/css/jquery-ui-1.10.2.custom.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href="assets/css/prettify.css" rel="stylesheet">
 
     <style type="text/css">
         body {
-            padding-top: 20px;
-            padding-bottom: 40px;
             font-family: 'Lato', sans-serif;
+            margin-bottom: 60px;
         }
 
+        section {
+            margin-bottom: 40px;
+        }
+
+            /* Jumbotron */
         .jumbotron {
-            margin: 60px 0;
+            margin-bottom: 60px;
             text-align: center;
+            background-color: #eeeeee;
+            padding: 80px 0 120px 0;
+            border: 1px solid #e6e6e6;
         }
         .jumbotron h1 {
             font-size: 72px;
@@ -34,29 +42,24 @@
             margin: 0 10px;
         }
 
-        .sketch-container {
-            position: relative;
-            text-align: center;
-            max-height: 500px;
-            max-width: 500px;
-            width: 100%;
-            height: 100%;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
-
+            /* Sketchpad */
         .resize {
             border: 1px solid #000;
             padding: 1px;
             border-radius: 5px;
+            max-height: 500px;
+            max-width: 500px;
         }
 
         .ui-effects-transfer {
             border: 2px dotted gray;
         }
+
+            /* Docs */
+        #docs .row-fluid {
+            /*padding: 20px 0;*/
+        }
+
 
     </style>
     <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -79,54 +82,115 @@
 
 <body>
 
-<a href="https://github.com/trsanders/responsive-sketchpad">
-    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
-</a>
+<a href="https://github.com/trsanders/responsive-sketchpad"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<div class="jumbotron">
+    <h1>Responsive Sketchpad</h1>
+    <p class="lead">A completely responsive HTML5 canvas sketchpad</p>
+    <a class="btn btn-large" href="https://github.com/trsanders/responsive-sketchpad"><img src="assets/img/octocat-icon.png"> View on Github</a>
+    <a class="btn btn-large" href="https://github.com/trsanders/responsive-sketchpad/zipball/master"><img src="assets/img/zip-icon.png"> Download Source</a>
+</div>
 
 <div class="container-fluid">
-
-    <div class="jumbotron">
-        <h1>Responsive Sketchpad</h1>
-        <p class="lead">A completely responsive HTML5 canvas sketchpad</p>
-        <a class="btn btn-large" href="https://github.com/trsanders/responsive-sketchpad"><img src="assets/img/octocat-icon.png"> View on Github</a>
-        <a class="btn btn-large" href="https://github.com/trsanders/responsive-sketchpad/zipball/master"><img src="assets/img/zip-icon.png"> Download Source</a>
-    </div>
-
-    <hr>
-
     <div class="row-fluid">
         <div class="span8 offset2">
-            <div class="span6">
-                <div class="sketch-container">
-                    <h4>Editor</h4>
-                    <div class="resize">
-                        <canvas id="sketch">Your browser does not support HTML5 Canvas.</canvas>
+
+            <!--Sketchpad and Viewer-->
+            <section id="sketchpad">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <h4>Editor</h4>
+                        <div class="resize">
+                            <canvas id="sketch">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <h4>Viewer <a id="copy" style="font-size: 10px; cursor: pointer">Click to Display</a></h4>
+                        <div class="resize">
+                            <canvas id="sketch-viewer">Your browser does not support HTML5 Canvas.</canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="span6">
-                <div class="sketch-container">
-                    <h4>Viewer <span style="font-size: 10px"><a id="copy">Click to Display</a></span></h4>
-                    <div class="resize">
-                        <canvas id="sketch-viewer">Your browser does not support HTML5 Canvas.</canvas>
+                <div class="pull-right" style="padding: 7px 22px 0 0">
+                    <p class="muted" style="font-size: 12px">Resize containers to see it in action!</p>
+                </div>
+            </section>
+
+
+            <!--Docs-->
+            <section id="docs">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h2>Initialize Sketchpad</h2>
+<pre class="prettyprint lang-js">$('canvas-selector').sketchpad({
+    aspectRatio: 2 / 1,             // (Required) To preserve the drawing, a aspect ratio must be specified
+    backgroundColor: '#ffffff'      // (Optional) To set the background of the canvas
+    strokes: 'JSON',                // (Optional) To initialize the sketchpad with stroke data
+});</pre>
                     </div>
                 </div>
-            </div>
+                <hr>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <h2>Color</h2>
+                        <p>Select the line color</p>
+                        <pre class="prettyprint lang-js">sketchpad.setLineColor('#000000')</pre>
+                        <pre class="prettyprint lang-js">sketchpad.getLineColor()</pre>
+                        <a class="btn" id="btn-color" href="#sketchpad">Random Color</a>
+                    </div>
+                    <div class="span4">
+                        <h2>Size</h2>
+                        <p>Select the line Size</p>
+                        <pre class="prettyprint lang-js">sketchpad.setLineSize(3)</pre>
+                        <pre class="prettyprint lang-js">sketchpad.getLineSize()</pre>
+                        <a class="btn" id="btn-size" href="#sketchpad">Random Size</a>
+                    </div>
+                    <div class="span4">
+                        <h2>Undo/Redo</h2>
+                        <p>Undo or redo lines drawn</p>
+                        <pre class="prettyprint lang-js">sketchpad.undo()</pre>
+                        <pre class="prettyprint lang-js">sketchpad.redo()</pre>
+                        <div class="btn-group">
+                            <a class="btn" id="btn-undo">Undo</a>
+                            <a class="btn" id="btn-redo">Redo</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <h2>Clear</h2>
+                        <p>Reset the canvas</p>
+                        <pre class="prettyprint lang-js">sketchpad.clear()</pre>
+                        <a class="btn" id="btn-clear" href="#sketchpad">Clear</a>
+                    </div>
+                    <div class="span4">
+                        <h2>Get JSON</h2>
+                        <p>Get the canvas strokes in a JSON format</p>
+                        <pre class="prettyprint lang-js">sketchpad.json()</pre>
+                    </div>
+                    <div class="span4">
+                        <h2>Load JSON</h2>
+                        <p>Display JSON array of strokes</p>
+                        <pre class="prettyprint lang-js">sketchpad.jsonLoad('JSON')</pre>
+                    </div>
+                    <!--<div class="span3">-->
+                    <!--<h2>Get Image</h2>-->
+                    <!--<p>Get downloadable image of canvas</p>-->
+                    <!--<pre class="prettyprint lang-js">sketchpad.getImage()</pre>-->
+                    <!--<a class="btn" id="btn-img" href="#sketchpad">Get Image</a>-->
+                    <!--</div>-->
+                </div>
+            </section>
         </div>
     </div>
-
-    <div class="row-fluid" style="margin-top: 50px">
-        <div class="span12" style="text-align: center">
-            <h2>Resize to see it in action!</h2>
-        </div>
-    </div>
-
 </div>
 
 <script src="assets/js/jquery-2.0.0.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-ui-1.10.2.custom.min.js"></script>
 <script src="responsive-sketchpad.js"></script>
+<script src="assets/js/prettify.js"></script>
 
 <script>
     var sketchpad = $('#sketch').sketchpad({
@@ -163,6 +227,54 @@
         minWidth: 200
     });
 
+
+    // ---------- Tools ----------------
+
+    // Color
+    var colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple', 'black'];
+    $('#btn-color').click(function() {
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        sketchpad.setLineColor(color);
+    });
+
+    // Size
+    $('#btn-size').click(function() {
+        var size = Math.floor(Math.random() * 20) + 1;
+        sketchpad.setLineSize(size);
+    });
+
+    // Undo/Redo
+    $('#btn-undo').click(function() {
+        sketchpad.undo();
+    });
+    $('#btn-redo').click(function() {
+        sketchpad.redo();
+    });
+
+    // Clear
+    $('#btn-clear').click(function() {
+        sketchpad.clear();
+    });
+
+    // Image
+    $('#btn-img').click(function() {
+        var img = sketchpad.getImage();
+        var newWindow = window.open();
+        newWindow.document.write(img);
+        newWindow.document.close();
+
+    });
+
+</script>
+
+<script>
+    // @prettify
+    !function ($) {
+        $(function(){
+            window.prettyPrint && prettyPrint()
+        })
+    }(window.jQuery);
+    // #prettify
 </script>
 
 </body>
